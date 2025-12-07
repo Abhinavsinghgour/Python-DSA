@@ -1,0 +1,24 @@
+# program to find particular element in the .txt file 🔍⭐🌟
+
+import sys
+
+name = input('Enter Candidate name to find : ').strip()
+
+try:  
+    with open('names.txt', 'r') as file:
+    # alternative single line code
+    # lines = [line.strip() for line in file.readlines()]
+        lines = file.readlines()
+        for line in lines:
+            file_name = line.strip()
+            if file_name == name:
+                print(f"{name}")
+                break
+        else:
+            print("Candidate not found")
+
+except FileNotFoundError:
+    print("File not found")
+
+
+
