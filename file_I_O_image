@@ -1,0 +1,18 @@
+
+# Q. image file i/o:
+
+# here we using two images custom1, custom2 which will be merged and result a Gif image.
+
+import sys
+
+from PIL import Image
+
+images=[]
+
+for arg in sys.argv[1:]:
+   image= Image.open(arg) # opening file in image format
+   images.append(image)
+
+images[0].save(
+    "customs.gif", save_all=True, appen_image=[images[1]], duration=200, loop=0
+)
