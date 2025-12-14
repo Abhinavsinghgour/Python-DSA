@@ -1,0 +1,29 @@
+                                                                        >>>>>>   Writing Methodology  <<<<<<<
+
+
+# ====================================================   
+# Q. Create a csv file and write entries in it with predefined column name?
+
+# Solution : 
+
+# Code explanation :
+
+#                 >>>>     writer.writerow({"name": name , "home": home})       <<<<
+
+
+# Action: above line uses the "DictWriter" object to write a new row of data to the CSV file.
+
+# writer.writerow(...): This method expects a Python dictionary as its input.
+
+# {"name": name , "home": home}: This dictionary maps the header names defined in fieldnames ("name" and "home") to the variables containing the user's input (name and home).
+
+# Result: The DictWriter looks up the values in the dictionary, puts them in the correct column order, and writes the final, formatted line into name.csv.
+
+import csv
+
+name=input("Enter name :")
+home=input("Enter home Address :")
+
+with open("name.csv", "a") as file:
+    writer=csv.DictWriter(file, fieldnames=["name","home"])
+    writer.writerow({"name": name , "home": home})
