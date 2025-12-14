@@ -1,0 +1,95 @@
+
+# ==========================================================
+
+# Q. what if csv file has three csv value or more 
+# but we are seeking/sorting only on the bases of few value (like here sorting on the bases of name) 
+# then what modifaction needed in current program ?
+
+# names file data :
+
+#               Abhi, Nowg
+#               gour, Bhopal
+#               singh, "Chhatarput, Madhya pradesh"             <<<<<<<<
+#               dhruv, Noida
+#               Anonymous, Delhi
+
+
+
+# Solution :
+
+# importing CSV module, built-in module
+# csv.reader() to read file and it will understand every comma sepration.
+
+import csv
+students=[]
+
+with open("names.csv") as file:
+    # "reader" is going to figure out where are commas, quotes.... similar to rstrip() & split() doing there.
+    reader=csv.reader(file,skipinitialspace=True)
+    # iterating over reader not file directly
+    # Note/Reminder : AttributeError: 'list' object has no attribute 'rstrip'
+    #  example : for row in reader:
+                # here row act as "list" and row[0] or row[1]... act as column
+                # similar scenario with name, home below they act as "list"
+    for name,home in reader:
+        student={"name":name,"home":home}
+        students.append(student)
+
+for student in sorted(students,key= lambda student : student["home"]):
+    print(f"{student['name']} is from {student['home']}")
+
+
+# ==========================================================================================
+
+# Q.  DictReader : here 
+# Q. here we are not making assumption 
+
+
+import csv
+
+students=[]
+
+with open('names.csv') as file:
+    reader=csv.DictReader(file, skipinitialspace=True)
+    #  here row is dictionary because fo dictreader
+    for row in reader:
+        # "name" & "home" is key which were also working as a header/column name in name.csv file
+        student={"name": row['name'],"home":row['home']}
+        students.append(student)
+
+for student in sorted(students, key=lambda student:student['name']):
+    print(f"{student['name']} is from {student['home']}")
+
+
+
+
+# ====================================================
+                                                                             >>>>>  Writing Methodology <<<<<<
+
+
+# Q. Create a csv file and write entries in it with predefined column name?
+
+# Solution : 
+
+# Code explanation :
+
+#                 >>>>     writer.writerow({"name": name , "home": home})       <<<<
+
+
+# Action: above line uses the "DictWriter" object to write a new row of data to the CSV file.
+
+# writer.writerow(...): This method expects a Python dictionary as its input.
+
+# {"name": name , "home": home}: This dictionary maps the header names defined in fieldnames ("name" and "home") to the variables containing the user's input (name and home).
+
+# Result: The DictWriter looks up the values in the dictionary, puts them in the correct column order, and writes the final, formatted line into name.csv.
+
+import csv
+
+name=input("Enter name :")
+home=input("Enter home Address :")
+
+with open("name.csv", "a") as file:
+    writer=csv.DictWriter(file, fieldnames=["name","home"])
+    writer.writerow({"name": name , "home": home})
+
